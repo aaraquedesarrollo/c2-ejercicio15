@@ -1,5 +1,7 @@
 import { mataPersonajes, getPersonajes } from "./funciones.js";
 
+let personajes;
+
 const clonarElemento = (clase) => {
   const elemento = document.querySelector(`.${clase}`).cloneNode(true);
   elemento.classList.remove(`${clase}`);
@@ -10,7 +12,7 @@ const clonarElemento = (clase) => {
 const eventoCargarPersonajes = () => {
   const botonCargarPersonajes = document.querySelector(".cargar-personajes");
   botonCargarPersonajes.addEventListener("click", async () => {
-    const personajes = await getPersonajes();
+    personajes = await getPersonajes();
     printarPersonajes(personajes);
   });
 };
@@ -49,13 +51,17 @@ const printarPersonajes = (arrayPersonajes) => {
 
     listaPersonajes.append(elementoPersonaje.cloneNode(true));
   }
+  console.log(personajes);
 };
 
 const matarFamilia = async (nombreFamilia) => {
+  const elementoMensaje = document.querySelector(".mensaje");
   try {
-    const personajesResultado = await mataPersonajes(nombreFamilia);
-    printarPersonajes(personajesResultado);
-  } catch {}
+    personajes = await mataPersonajes(nombreFamilia);
+    printarPersonajes(personajes);
+  } catch (error) {
+    elementoMensaje.textContent = error.message;
+  }
 };
 
 eventoCargarPersonajes();
