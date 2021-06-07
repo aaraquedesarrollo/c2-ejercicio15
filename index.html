@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asincronía</title>
+    <script src="/js/index.js" type="module" defer></script>
+    <link rel="stylesheet" href="css/estilos.css" />
+  </head>
+  <body>
+    <h1>Juego de Tronos</h1>
+    <button class="cargar-personajes">Carga personajes</button>
+    <ul class="personajes">
+      <li class="personaje personaje-dummy"></li>
+      <li class="personaje">
+        Jaime Lannister (<span class="estado">vivo</span>)
+      </li>
+      <li class="personaje">
+        Tyrion Lannister (<span class="estado">muerto</span>)
+      </li>
+      <li class="personaje">
+        Daenerys Targaryen (<span class="estado">vivo</span>)
+      </li>
+    </ul>
+    <input type="text" class="familia" placeholder="Introduce familia" />
+    <button class="matar-familia">Matar familia</button>
+    <p class="mensaje"></p>
+  </body>
+</html>
