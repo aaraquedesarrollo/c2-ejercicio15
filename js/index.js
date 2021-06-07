@@ -9,20 +9,36 @@ const clonarElemento = (clase) => {
 //añadir evento a Carga personajes
 const eventoCargarPersonajes = () => {
   const botonCargarPersonajes = document.querySelector(".cargar-personajes");
-  botonCargarPersonajes.addEventListener("click", (e) => {
-    printarPersonajes();
+  botonCargarPersonajes.addEventListener("click", async () => {
+    const personajes = await getPersonajes();
+    printarPersonajes(personajes);
   });
 };
 
+//añadir evento matar familia
+const eventoMatarFamlia = () => {
+  const botonMatarFamilia = document.querySelector(".matar-familia");
+  botonMatarFamilia.addEventListener("click", () => {
+    const elementoInputFamilia = document.querySelector(".familia");
+    matarFamilia(elementoInputFamilia.value);
+  });
+};
+
+const borrarPersonajes = (elementoPadre) => {
+  while (elementoPadre.childElementCount > 1) {
+    elementoPadre.removeChild(elementoPadre.lastChild);
+  }
+};
+
 //printar los personjaes en la lista
-const printarPersonajes = async () => {
+const printarPersonajes = (arrayPersonajes) => {
   //obtenemos los elementos del html
   const listaPersonajes = document.querySelector(".personajes");
   const elementoPersonaje = clonarElemento("personaje-dummy");
 
-  const personajes = await getPersonajes();
+  borrarPersonajes(listaPersonajes);
 
-  for (const personaje of personajes) {
+  for (const personaje of arrayPersonajes) {
     const elementoPersonajeNombre = elementoPersonaje.querySelector(".nombre");
     const elementoPersonajeEstado = elementoPersonaje.querySelector(".estado");
 
@@ -35,6 +51,12 @@ const printarPersonajes = async () => {
   }
 };
 
-(() => {
-  eventoCargarPersonajes();
-})();
+const matarFamilia = async (nombreFamilia) => {
+  try {
+    const personajesResultado = await mataPersonajes(nombreFamilia);
+    printarPersonajes(personajesResultado);
+  } catch {}
+};
+
+eventoCargarPersonajes();
+eventoMatarFamlia();
